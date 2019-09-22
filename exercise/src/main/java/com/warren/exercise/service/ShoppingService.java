@@ -1,7 +1,5 @@
 package com.warren.exercise.service;
 
-import com.warren.exercise.entity.Commodity;
-
 /**
  * 购物接口类
  * @author Warren
