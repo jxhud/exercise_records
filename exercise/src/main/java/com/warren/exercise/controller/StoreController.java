@@ -11,4 +11,9 @@ public class StoreController {
         return "store";
     }
 
+    @GetMapping("/cart")
+    public String toCart() {
+        return "cart";
+    }
+
 }

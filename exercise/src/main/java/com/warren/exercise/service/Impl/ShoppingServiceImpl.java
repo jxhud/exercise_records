@@ -55,7 +55,7 @@ public class ShoppingServiceImpl implements ShoppingService {
         JsonUtil store = new JsonUtil("src/main/resources/static/store.json");
         JsonUtil cart = new JsonUtil("src/main/resources/static/shopping_cart.json");
         JSONArray storeJson = store.readJsonFile();
-        System.out.println("开始进行追加");
+        System.out.println("+开始进行追加");
         for (int i = 0; i < storeJson.size(); i++) {
             JSONObject jsonObject = storeJson.getJSONObject(i);
             System.out.println(jsonObject.getString("name"));
@@ -74,10 +74,10 @@ public class ShoppingServiceImpl implements ShoppingService {
             // 追加购物车商品
             Commodity commodity = new Commodity(name, jsonObject.getDouble("price"), quantity);
             cart.appendJson(commodity);
-            System.out.println("追加购物车商品" + name);
+            System.out.println("+追加购物车商品" + name);
             break;
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -121,6 +121,6 @@ public class ShoppingServiceImpl implements ShoppingService {
                 break;
             }
         }
-        return false;
+        return true;
     }
 }

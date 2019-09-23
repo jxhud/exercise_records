@@ -24,7 +24,6 @@
 
         .storeCard {
             width: 600px;
-            min-height: 300px;
             border: 1px solid silver;
 
         }
@@ -36,6 +35,15 @@
             font-size: 20px;
             text-align: center;
             border-bottom: 1px solid silver;
+        }
+
+        .card_footer {
+            width: 100%;
+            height: 70px;
+            border-top: 1px solid silver;
+            padding: 15px 30px;
+            box-sizing: border-box;
+            text-align: right;
         }
     </style>
     <%-- vue --%>
@@ -50,7 +58,7 @@
     <div id="storeBox" class="center">
         <div class="storeCard">
             <div class="card_header">
-                商店
+                <i class="el-icon-goods"></i> 商店
             </div>
             <el-table
                     :data="commodity">
@@ -61,22 +69,28 @@
                 </el-table-column>
                 <el-table-column
                         prop="price"
-                        label="价格"
+                        label="价格（元）"
                         align="center">
                 </el-table-column>
                 <el-table-column
                         prop="quantity"
-                        label="数量"
+                        label="数量（斤）"
                         align="center">
                 </el-table-column>
                 <el-table-column
-                        label="购买"
+                        label="购买（+1/次）"
                         align="center">
                     <template slot-scope="scope">
-                        <el-button type="danger" size="mini" @click="buyCommodity(scope.row['name'])" round>购买</el-button>
+                        <el-button type="danger" size="mini" @click="buyCommodity(scope.row['name'])"
+                                   :disabled="scope.row['quantity'] === 0" round>购买</el-button>
                     </template>
                 </el-table-column>
             </el-table>
+            <div class="card_footer">
+                <el-badge :is-dot="red_dot">
+                    <el-button icon="el-icon-shopping-cart-2" @click="toCart" plain>购物车</el-button>
+                </el-badge>
+            </div>
         </div>
     </div>
 </body>
@@ -85,13 +99,18 @@
         el: '#storeBox',
         data() {
             return {
-                commodity: []
+                commodity: [],
+                red_dot: false,
             }
         },
         mounted() {
             this.getStoreJson();
+            this.getCartList();
         },
         methods: {
+            toCart() {
+                window.location.href = "cart";
+            },
             // 获取商店商品列表
             getStoreJson() {
                 this.commodity = [];
@@ -127,10 +146,25 @@
                     success: function (resp) {
                         if(resp === "ok") {
                             self.getStoreJson();
+                            this.getCartList();
                         }
                         else {
                             alert("购买异常");
                         }
+                    },
+                    error: function () {
+                        alert("请检查网络环境！")
+                    }
+                })
+            },
+            // 获取购物车信息
+            getCartList() {
+                let self = this;
+                $.ajax({
+                    url: "http://localhost:8080/cart_list",
+                    type: "get",
+                    success: function (resp) {
+                        self.red_dot = resp !== '[]';
                     },
                     error: function () {
                         alert("请检查网络环境！")
