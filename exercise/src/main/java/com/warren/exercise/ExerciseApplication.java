@@ -9,11 +9,11 @@ public class ExerciseApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ExerciseApplication.class, args);
-        ShoppingServiceImpl shoppingService = new ShoppingServiceImpl();
-        shoppingService.appendCommodity("苹果", 20);
-        String[] names = new String[20];
-        names[0] = "苹果";
-//        shoppingService.deleteCommodity(names);
+//        ShoppingServiceImpl shoppingService = new ShoppingServiceImpl();
+//        shoppingService.appendCommodity("苹果", 20);
+//        String[] names = new String[20];
+//        names[0] = "苹果";
+//        shoppingService.deleteCommodity(names, 1);
     }
 
 }
