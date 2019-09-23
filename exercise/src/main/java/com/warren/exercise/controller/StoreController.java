@@ -11,6 +11,11 @@ public class StoreController {
         return "store";
     }
 
+    @GetMapping("/")
+    public String toIndex() {
+        return "store";
+    }
+
     @GetMapping("/cart")
     public String toCart() {
         return "cart";
