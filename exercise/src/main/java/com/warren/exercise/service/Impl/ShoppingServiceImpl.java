@@ -58,7 +58,6 @@ public class ShoppingServiceImpl implements ShoppingService {
         System.out.println("+开始进行追加");
         for (int i = 0; i < storeJson.size(); i++) {
             JSONObject jsonObject = storeJson.getJSONObject(i);
-            System.out.println(jsonObject.getString("name"));
             if(!jsonObject.getString("name").equals(name)) {
                 continue;
             }
